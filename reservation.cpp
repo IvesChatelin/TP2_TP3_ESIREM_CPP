@@ -37,18 +37,16 @@ void Reservation::setMontant(double montant) { _montant_total = montant; }
 Date Reservation::getDate() { return _debut; }
 
 // modifie la date et le nombre de nuit
-void Reservation::updateDate_NbreNuit(const Date &date, const int &nbrenuit) {
+void Reservation::updateDate(const Date &date, const int &nbrenuit) {
   _debut = date;
   _nbreNuit = nbrenuit;
 }
 
 // modifie la date
-void Reservation::updateDate_NbreNuit(const Date &date) { _debut = date; }
+void Reservation::updateDate(const Date &date) { _debut = date; }
 
 // modifie le nombre de nuit
-void Reservation::updateDate_NbreNuit(const int &nbrenuit) {
-  _nbreNuit = nbrenuit;
-}
+void Reservation::updateDate(const int &nbrenuit) { _nbreNuit = nbrenuit; }
 
 // calcule de montant d'une reservation
 double montant_reservation(Reservation &reservation, Hotel hotel) {
@@ -151,22 +149,59 @@ void getReservation(std::vector<Reservation> reservations,
 }
 
 // Modifie une Rservation
-void updateReservation(std::vector<Reservation> &reservations,
-                       std::string &hotel_client) {
+void updateReservation(std::vector<Reservation> &reservations, Hotel hotel,
+                       int numReservation, Date d, int nbreNuit) {
   bool status = false;
   for (auto it = reservations.begin(); it != reservations.end(); ++it) {
-    if (hotel_client == (*it).getIdHotel()) {
-      (*it)._idHotel = hotel_client;
-      std::cout << "Reservation modifiée avec success !!" << std::endl;
-      status = true;
-    }
-    if (hotel_client == (*it).getidClient()) {
-      (*it)._idClient = hotel_client;
-      std::cout << "Reservation modifiée avec success !!" << std::endl;
+    if (numReservation == (*it).getNumReservation()) {
+      (*it).updateDate(d, nbreNuit);
+      montant_reservation((*it), hotel);
+      std::cout
+          << "Date et nombre de nuit de la Reservation modifiée avec success !!"
+          << std::endl;
+      std::cout << std::endl;
       status = true;
     }
   }
   if (!status) {
     std::cout << "erreur! Reservation non modifiée !!" << std::endl;
+    std::cout << std::endl;
+  }
+}
+
+void updateReservation(std::vector<Reservation> &reservations, Hotel hotel,
+                       int numReservation, int nbreNuit) {
+  bool status = false;
+  for (auto it = reservations.begin(); it != reservations.end(); ++it) {
+    if (numReservation == (*it).getNumReservation()) {
+      (*it).updateDate(nbreNuit);
+      montant_reservation((*it), hotel);
+      std::cout << "Le nombre de nuit de Reservation modifiée avec success !!"
+                << std::endl;
+      std::cout << std::endl;
+      status = true;
+    }
+  }
+  if (!status) {
+    std::cout << "erreur! Reservation non modifiée !!" << std::endl;
+    std::cout << std::endl;
+  }
+}
+
+void updateReservation(std::vector<Reservation> &reservations,
+                       int numReservation, Date d) {
+  bool status = false;
+  for (auto it = reservations.begin(); it != reservations.end(); ++it) {
+    if (numReservation == (*it).getNumReservation()) {
+      (*it).updateDate(d);
+      std::cout << "La date de la Reservation modifiée avec success !!"
+                << std::endl;
+      std::cout << std::endl;
+      status = true;
+    }
+  }
+  if (!status) {
+    std::cout << "erreur! Reservation non modifiée !!" << std::endl;
+    std::cout << std::endl;
   }
 }

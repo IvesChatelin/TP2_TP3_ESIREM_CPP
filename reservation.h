@@ -28,11 +28,16 @@ public:
   int getidChambre();
   double getMontant();
   void setMontant(double montant);
-  void updateDate_NbreNuit(const Date &date, const int &nbrenuit);
-  void updateDate_NbreNuit(const Date &date);
-  void updateDate_NbreNuit(const int &nbrenuit);
+  void updateDate(const Date &date, const int &nbrenuit);
+  void updateDate(const Date &date);
+  void updateDate(const int &nbrenuit);
   friend void updateReservation(std::vector<Reservation> &reservations,
-                                std::string &hotel_client);
+                                Hotel hotel, int numReservation, Date d,
+                                int nbreNuit);
+  friend void updateReservation(std::vector<Reservation> &reservations,
+                                int numReservation, Date d);
+  friend void updateReservation(std::vector<Reservation> &reservations,
+                                Hotel hotel, int numReservation, int nbreNuit);
 };
 
 double montant_reservation(Reservation &reservation, Hotel hotel);

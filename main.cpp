@@ -24,18 +24,19 @@ int main() {
                                    ch6, ch7, ch8, ch9, ch10};
 
   // tableau de Clients
-  Client cl1("Chato237", "NZOKOU", "Ives Chatelin");
-  Client cl2("Nono237", "NONO", "Christiant");
+  Client cl1("Chato237", "NZOKOU", "Ives");
+  Client cl2("Abdel237", "SABI", "Abdellah");
   std::vector<Client> clients = {cl1, cl2};
 
   // Hotêl
   Hotel h1("OCEAN15N", "Hotel de Dijon", "Dijon", chambres);
 
   // Partie Client
-  std::string nom, prenom;
   std::cout << "Entrez votre nom : ";
+  std::string nom;
   std::cin >> nom;
   std::cout << "Entrez votre prenom : ";
+  std::string prenom;
   std::cin >> prenom;
   std::cout << std::endl;
   bool status = false;
@@ -54,6 +55,7 @@ int main() {
     std::cout << std::endl;
     std::cout << "Entrez un identifiant : ";
     std::cin >> id;
+    std::cout << std::endl;
     cl.setId(id);
     cl.setNom(nom);
     cl.setPrenom(prenom);
@@ -124,12 +126,8 @@ int main() {
                     chambre_libre.getNum(), nb_nuit, d);
   montant_reservation(rserv, h1);
   Date d2(14, 01, 2023);
-  rserv.updateDate_NbreNuit(d2);
   reservations.push_back(rserv);
+  // updateReservation(reservations, h1, num, d2, 3);
   getAllReservation(reservations);
-  /*getReservation(reservations, num);
-  getReservation(reservations, cl.getId());
-  annuleReservation(reservations);*/
-  // std::cout << reservations.size() << std::endl;
   return 0;
 }

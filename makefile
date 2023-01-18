@@ -7,7 +7,7 @@ LDFLAGS    =
 SRCS       = main.cpp client.cpp chambre.cpp date.cpp hotel.cpp reservation.cpp
 OBJS       = $(SRCS:.cpp=.o)
 	# Replace your_app with the name you want to give to your executable file
-TARGET     = main 
+TARGET     = gestHotel 
 DEPS	   = $(OBJS:.o=.d)
 	
 all: $(TARGET)
