@@ -26,7 +26,6 @@ void Magasin::getAllProduit() {
 }
 
 void Magasin::getProduitByName(std::string nom) {
-  std::string const fileProduit("produits.txt");
   bool status = false;
   for (auto it = _produits.begin(); it != _produits.end(); ++it) {
     if (nom == (*it).getTitre()) {
@@ -55,6 +54,7 @@ void Magasin::updateQuantiteProduit(std::string nomProduit, int quantite) {
 
 void addClientMagasin(Magasin &magasin, Client client) {
   magasin._clients.push_back(client);
+  std::cout << "Client ajouté avec succes " << std::endl;
 }
 
 void getAllClientMagasin(Magasin &magasin) {
@@ -68,6 +68,17 @@ void getAllClientMagasin(Magasin &magasin) {
   if (!status) {
     std::cout << "Aucun client dans ce magasin !! " << std::endl;
   }
+  /* avec fichier
+  std::ifstream file("clients.txt");
+  std::string ligne;
+  if (file) {
+    while (getline(file, ligne)) {
+      std::cout << ligne << std::endl;
+    }
+    file.close();
+  } else {
+    std::cout << "Erreur!!! dans l'ouverture du fichier clients " << std::endl;
+  }*/
 }
 
 void getClient(Magasin &magasin, std::string nom_identifiant) {

@@ -1,5 +1,5 @@
 ************************************
-Nom du produit : PS2
-Description du produit : console de jeux
-Quantité du produit : 4
-Prix unitaire : 315$
+Nom du produit : Iphone14
+Description du produit : téléphone
+Quantité du produit : 20
+Prix unitaire : 1200$

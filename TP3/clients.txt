@@ -1,5 +1,4 @@
 *************************
-Identifiant : esirem2022
-Nom du client : esirem
-prenom du client : esirem dijon
+nom du client : NZOKOU
+prenom du client : Ives Chatelin
 articles du panier : 

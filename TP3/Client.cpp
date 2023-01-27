@@ -55,7 +55,7 @@ std::ostream &operator<<(std::ostream &os, Client &Cl) {
   std::vector<Produit> vector = Cl.getpanier();
   std::string display =
       "*************************\nIdentifiant : " + Cl.getIdentifiant() +
-      "\nNom du client : " + Cl.getnom() + "\n" +
+      "\nnom du client : " + Cl.getnom() + "\n" +
       "prenom du client : " + Cl.getprenom() + "\n" + "articles du panier : ";
   os << display << std::endl;
   for (auto it = vector.begin(); it != vector.end(); ++it) {
