@@ -4,6 +4,7 @@
 #include "Produit.h"
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <vector>
 
 int main() {
@@ -18,20 +19,26 @@ int main() {
   // magasin
   Magasin magasin(produits, clients, commandes);
   char reponse;
-  std::cout << "***Bienvenue Dans EasyStore***" << std::endl;
+  menu : std::cout << "***Bienvenue Dans EasyStore***" << std::endl;
   std::cout << std::endl;
   std::cout << "Menu" << std::endl;
   std::cout << "Que voulez vous faire?" << std::endl;
   std::cout << "\tGestion du Magasin = m ";
   std::cout << "\tGestion des Utilisateurs = u ";
-  std::cout << "\tGestion des Commandes = c " << std::endl;
+  std::cout << "\tGestion des Commandes = c ";
+  std::cout << "\texit = * " << std::endl;
   std::cin >> reponse;
-  if (reponse == 'm') {
+  if(reponse == '*'){
+    return 0;
+  }
+  menu_magasin : if (reponse == 'm') {
     std::cout << "Que voulez vous faire?" << std::endl;
-    std::cout << "Ajouter un Nouveau Produit = a \n";
-    std::cout << "Afficher tous les Produits = l \n";
-    std::cout << "Mise à jour quantité produit = q \n";
-    std::cout << "Afficher un Produit = k " << std::endl;
+    std::cout << "\tAjouter un Nouveau Produit = a";
+    std::cout << "\tAfficher tous les Produits = l";
+    std::cout << "\tMise à jour quantité produit = q";
+    std::cout << "\tAfficher un Produit = k ";
+    std::cout << "\tMenu principal = #";
+    std::cout << "\tMenu magasin = *" << std::endl;
     char rep;
     std::cin >> rep;
     if (rep == 'q') {
@@ -47,9 +54,10 @@ int main() {
       std::cout << "Entrer le titre du produit : ";
       std::string titre;
       std::cin >> titre;
-      std::cout << "Entrer la description du produit : ";
       std::string desc;
-      std::cin >> desc;
+      std::cout << "Entrer la description du produit : ";
+      std::cin.ignore();
+      std::getline(std::cin, desc);
       std::cout << "Entrer la quantitée du produit : ";
       int qte;
       std::cin >> qte;
@@ -73,23 +81,48 @@ int main() {
       magasin.getProduitByName(titre);
     }
     if (rep == 'l') {
-      magasin.getAllProduit();
+      std::ifstream file(fileProduit);
+      std::string ligne;
+      if (file) {
+        while (getline(file, ligne)) {
+          std::cout << ligne << std::endl;
+        }
+        file.close();
+      } else {
+        std::cout << "Erreur!!! dans l'ouverture du fichier clients "
+                  << std::endl;
+      }
+      // magasin.getAllProduit();
+    }
+    if(rep == '#'){
+      goto menu;
+    }
+    if(rep == '*'){
+      goto menu_magasin;
     }
   }
   // utilisateur
   std::vector<Produit> panier = {};
   Client root("chato2020", "ives", "chatelin", panier);
-  if (reponse == 'u') {
+  menu_utilisateur : if (reponse == 'u') {
     std::cout << "Que voulez vous faire?" << std::endl;
-    std::cout << "Ajouter un client = a \n";
-    std::cout << "Afficher un client = c \n";
-    std::cout << "Afficher tous les clients = b \n";
-    std::cout << "Ajouter un produit le pannier d'un client = p \n";
-    std::cout << "Modifier quantitée produit le panier d'un client = m \n";
-    std::cout << "Supprimer produit dans le panier d'un client = s \n";
-    std::cout << "Vider Pannier d'un client = v " << std::endl;
+    std::cout << "\tAjouter un client = a";
+    std::cout << "\tAfficher un client = c";
+    std::cout << "\tAfficher tous les clients = b";
+    std::cout << "\tAjouter un produit le pannier d'un client = p";
+    std::cout << "\tModifier quantitée produit le panier d'un client = m";
+    std::cout << "\tSupprimer produit dans le panier d'un client = s";
+    std::cout << "\tVider Pannier d'un client = v ";
+    std::cout << "\tMenu principal = #" << std::endl;
+    std::cout << "\tMenu utilisateur = *" << std::endl;
     char rep;
     std::cin >> rep;
+    if(rep == '#'){
+      goto menu;
+    }
+    if(rep == '*'){
+      goto menu_utilisateur;
+    }
     if (rep == 'a') {
       std::cout << "Entrer l'identifiant du client : ";
       std::string identifiant;
@@ -99,7 +132,8 @@ int main() {
       std::cin >> nom;
       std::cout << "Entrer le prenom du client : ";
       std::string prenom;
-      std::cin >> prenom;
+      std::cin.ignore();
+      std::getline(std::cin, prenom);
       Client client(identifiant, nom, prenom, panier);
       addClientMagasin(magasin, client);
       std::ofstream file(fileClient.c_str(), std::ios::app);
@@ -117,11 +151,12 @@ int main() {
       getClient(magasin, identifiant);
     }
     if (rep == 'b') {
-      std::ifstream file("clients.txt");
+      std::ifstream file(fileClient);
       std::string ligne;
       if (file) {
         while (getline(file, ligne)) {
           std::cout << ligne << std::endl;
+          
         }
         file.close();
       } else {
@@ -177,14 +212,22 @@ int main() {
   }
   // commande
   std::vector<Produit> pro_com = {};
-  if (reponse == 'c') {
+  menu_commande : if (reponse == 'c') {
     std::cout << "Que voulez vous faire?" << std::endl;
-    std::cout << "Mettre à jour statu commande = m \n";
-    std::cout << "Afficher tous commandes = l \n";
-    std::cout << "Afficher tous commandes d'un client = c \n";
-    std::cout << "Valider commande = v " << std::endl;
+    std::cout << "\tMettre à jour statu commande = m";
+    std::cout << "\tAfficher tous commandes = l";
+    std::cout << "\tAfficher tous commandes d'un client = c";
+    std::cout << "\tValider commande = v ";
+    std::cout << "\tMenu principal = # " << std::endl;
+    std::cout << "\tMenu commande = * " << std::endl;
     char rep;
     std::cin >> rep;
+    if(rep == '#'){
+      goto menu;
+    }
+    if(rep == '*'){
+      goto menu_commande;
+    }
     if (rep == 'm') {
       std::cout << "Entrer le numero de la commande : ";
       int num;

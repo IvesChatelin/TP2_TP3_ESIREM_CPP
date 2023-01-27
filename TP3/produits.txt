@@ -1,0 +1,5 @@
+************************************
+Nom du produit : PS2
+Description du produit : console de jeux
+Quantité du produit : 4
+Prix unitaire : 315$

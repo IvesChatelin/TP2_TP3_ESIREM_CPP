@@ -27,8 +27,9 @@ std::ostream &operator<<(std::ostream &os, Commande &commande) {
   } else {
     stat = "Status : Pas Livrée";
   }
-  os << "************************\n" + cl << "\n"
-     << stat << "\nListe de produit : " << std::endl;
+  os << "************************\nIdentifiant du client : " + cl << "\n"
+     << "status de la commande : " << stat
+     << "\nListe de produit : " << std::endl;
   for (auto it = produits.begin(); it != produits.end(); ++it) {
     std::cout << (*it);
   }
